@@ -1,0 +1,26 @@
+service: vtRestApi
+configValidationMode: error
+frameworkVersion: "3"
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  memorySize: 2048
+  stage: dev
+  timeout: 15
+  region: ap-southeast-2
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - http: ANY /{proxy+}
+      - http: ANY /
+    environment:
+      PORT: 4000
+      NODE_ENV: development
+      POSTGRES_DB_USER: postgres
+      POSTGRES_DB_PASSWORD: mYlife!0
+      POSTGRES_DB_HOST: videotranslator.cwuis5tzfmah.ap-southeast-2.rds.amazonaws.com
+      POSTGRES_DB_PORT: 5432
+      POSTGRES_DB_DATABASE: videotranslatorDB
